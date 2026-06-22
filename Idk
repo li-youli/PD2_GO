@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct NODE{
+int val;
+struct NODE *next;
+}NODE;
+
+NODE *head = NULL;
+
+void insertFirst(int val){
+NODE *newNode = (NODE*) malloc(sizeof(NODE));
+newNode->val = val;
+newNode->next = head;
+head = newNode;
+}
+
+void deleteFirst(){
+NODE *temp = head;
+if(temp == NULL){
+printf("NULL LIST\n");
+};
+head = head->next;
+free(temp);
+}
+
+void insertTail(int val){
+NODE *newNode = (NODE*) malloc(sizeof(NODE));
+newNode->val = val;
+newNode->next = NULL;
+
+if(head == NULL){
+head = newNode;
+return;
+}
+
+NODE *temp = head;
+while(temp->next != NULL){
+temp = temp->next;
+}
+
+temp->next = newNode;
+};
+
+void printall(){
+//NODE *temp = head;
+while(head != NULL){
+printf("%d ",head->val);
+printf("\n");
+head = head->next;
+}
+}
+
+void insertInto(int val,int pos){
+    NODE* newNode = (NODE*) malloc(sizeof(NODE));
+    newNode->val = val;
+    if(pos == 0){
+        newNode->next = head;
+        head = newNode;
+        return;
+    }
+
+    NODE* temp = head;
+    for(int i = 0; i < pos-1;i++){
+        if(temp == NULL){
+            printf("invalid");
+            return;
+        }
+        temp = temp->next;
+    }
+
+    if(temp == NULL){
+        printf("invalid");
+        return;
+    }
+
+    newNode->next = temp->next;
+    temp->next = newNode;
+
+}
+
+int main(){
+insertFirst(10);
+insertFirst(30);
+insertInto(20,2);
+//insertFirst(1);
+//insertFirst(2);
+//deleteFirst();
+printall();
+return 0;
+}
